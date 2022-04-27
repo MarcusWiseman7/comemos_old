@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { Card } from 'src/lib/ts-interfaces';
+    import { urlFor } from '$lib/image-url';
 
-    export let card: Card;
+    export let card;
     const { title, ingredients, pic, steps } = card;
 </script>
 
@@ -28,7 +28,12 @@
             {/if}
         </div>
 
-        <img src={'../images/' + pic} alt={title} class="w-full rounded-lg shadow-lg" />
+        <img
+            src={urlFor(pic).height(256).format('webp').url()}
+            srcset={urlFor(pic).height(512).format('webp').url()}
+            alt={title}
+            class="w-full h-64 rounded-lg shadow-lg object-cover"
+        />
     </div>
 
     <!-- Desktop ingredients -->

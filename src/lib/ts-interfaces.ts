@@ -5,4 +5,5 @@ export interface Card {
     pic: SanityImageAssetDocument;
     ingredients: [string],
     steps: [string],
+    _id: string;
 };

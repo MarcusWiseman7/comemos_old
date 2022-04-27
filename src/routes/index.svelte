@@ -1,7 +1,8 @@
 <script lang="ts">
     import searchSrc from '$lib/assets/icons/search.svg';
     import { cards } from '$lib/stores';
-    import type { Card } from 'src/lib/ts-interfaces';
+    import type { Card } from '$lib/ts-interfaces';
+    import { urlFor } from '$lib/image-url';
 
     $: search = '';
     $: filteredCards = search
@@ -30,11 +31,19 @@
     <div class="lg:grid grid-cols-2 2xl:grid-cols-3 gap-4 cursor-pointer my-6">
         {#each filteredCards as card}
             <a
-                href={'/card/' + card.id}
+                href={'/card/' + card._id}
                 class="h-60 lg:h-80 w-full rounded-md bg-violet-200 hover:ring-4 hover:ring-violet-500"
             >
                 <h3 class="text-2xl font-semibold h-16 flex items-center pl-3 text-violet-900">{card.title}</h3>
-                <img src="" alt={card.title} class="w-full h-48 lg:h-64 object-cover rounded-b-md" />
+                <img
+                    src={urlFor(card.pic).height(256).format('webp').url()}
+                    srcset={urlFor(card.pic)
+                        .height(256 * 2)
+                        .format('webp')
+                        .url()}
+                    alt={card.title}
+                    class="w-full h-48 lg:h-64 object-cover rounded-b-md"
+                />
             </a>
         {/each}
     </div>
